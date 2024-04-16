@@ -42,10 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
         modal.style.display = 'block';
+        let num = document.querySelectorAll('fieldset').length;
+        if (num != 1){
+            num = (num - 1) / 2 + 1;
+        }
+        const mod = num % 10;
+        const beverage_count = `Заказ принят! Вы заказали ${num} ${num !== 11 && mod === 1 ?
+            'напиток'
+            : (num > 20 && (mod === 2 || mod === 3 || mod === 4)) || (num >= 2 && num <= 4) ?
+                'напитка'
+                : 'напитков'}`;
+        document.querySelector('.status-order').textContent = beverage_count;
     });
 
     closeModal.addEventListener('click', function () {
-        modal.style.display = 'none'; // Скрываем модальное окно
+        modal.style.display = 'none';
 
         window.addEventListener('click', function (event) {
             if (event.target === modal) {
